@@ -30,7 +30,7 @@ contract Campaing {
     uint approversCount;
     
     
-     modifier restricted() {
+    modifier restricted() {
         require(msg.sender == manager);
         _;
     } 
@@ -76,5 +76,24 @@ contract Campaing {
         request.recipient.transfer(request.value);
         request.complete = true;
     }
-    
+
+    function getSummary() public view returns (
+        uint,
+        uint,
+        uint,
+        uint,
+        address
+    ){
+        return (
+            mininumContribution,
+            this.balance,
+            requests.length,
+            approversCount,
+            manager
+        );
+    }
+
+    function getRequestsCount() public view returns (uint) {
+        return requests.length;
+    }
 }
